@@ -1,28 +1,31 @@
 const photoFile = document.getElementById("photo-file")
 const photoPreview=document.getElementById("photo-preview");
 const selection = document.getElementById("selection-tool");
-const CropImageButton = document.getElementById("crop-image");
+const cropImageButton = document.getElementById("crop-image");
 const downloadButton = document.getElementById("download-button");
 const selectImage=document.getElementById('select-image');
-const image = new Image();
+let image;
+let photoName;
 
 selectImage.onclick = ()=>{
 	photoFile.click();
 }
 
+//pre carregamento do documento
 	window.addEventListener("DOMContentLoaded",()=>{
 	
 		photoFile.addEventListener("change",()=>{
 		
 				let file = photoFile.files.item(0);
-				console.log(file);
+				photoName=file.name;
 				
 				let reader = new FileReader();
 				reader.readAsDataURL(file);
-				reader.onload=function (ev) {
+				reader.onload=function (event) {
+					image= new Image();
 					
-					image.src=ev.target.result;
-					
+					image.src=event.target.result;
+					image.onload=onLoadImage
 				}
 		})
 })
@@ -52,7 +55,7 @@ const events={
 		startX = clientX;
 		startY = clientY;
 		relativeStartX = offsetX;
-		relativeStarty = offsetY;
+		relativeStartY = offsetY;
 		
 	},
 	mousemove(){
@@ -70,13 +73,14 @@ const events={
 	},
 	mouseup(){
 		startSelection=false;
+		
 		relativeEndX=event.layerX;
 		relativeEndY=event.layerY;
+		cropImageButton.style.display="initial";
 	}
 };
 	
-Object.keys(events)
-.forEach(eventName=>{
+Object.keys(events).forEach(eventName=>{
 	photoPreview.addEventListener(eventName,events[eventName])
 });
 
@@ -85,8 +89,9 @@ let canvas = document.createElement("canvas");
 let ctx = canvas.getContext("2d");
 
 
-image.onload=function(){
+function onLoadImage(){
 	const {width,height}=image;
+	
 	canvas.width=width;
 	canvas.height=height;
 	
@@ -103,7 +108,7 @@ image.onload=function(){
 
 //evento de corte
 
-CropImageButton.onclick=()=>{
+cropImageButton.onclick=()=>{
 	const {width:imgW,height:imgH}=image;
 	const {width:previewW,height:previewH}=photoPreview;
 	
@@ -142,5 +147,14 @@ CropImageButton.onclick=()=>{
   //altualizar preview da imagem
   photoPreview.src=canvas.toDataURL();
   
+  downloadButton.style.display="initial";
+  
 }
 
+  //exportar imagem cortada
+  downloadButton.onclick=()=>{
+  	const a=document.createElement("a");
+  	a.download=photoName+"_crop.png";
+  	a.href=canvas.toDataURL();
+  	a.click();
+  }
