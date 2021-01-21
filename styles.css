@@ -3,7 +3,7 @@
 @keyframes up {
     from {
         opacity: 0;
-        transform: translateY(1rem);
+        transform: translateY(10rem);
     }
     to {
         opacity: 1;
@@ -21,6 +21,7 @@
 }
 
 * {
+    
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -39,8 +40,8 @@ body {
 }
 
 header {
-    margin-top: 3.2rem;
-    padding-bottom: 4rem;
+    margin-top: 1.2rem;
+    padding-bottom: 2rem;
 
     text-align: center;
     color: var(--orange);
@@ -54,8 +55,7 @@ header p {
 
 main {
     margin: 0 auto;
-    width: min(80vw, 500px);
-
+    width: min(80vw,240px);
     animation: up 0.4s 0.2s backwards;
 }
 
@@ -67,32 +67,23 @@ footer {
 }
 
 footer::after {
-    content: "codedrops #53 com  Mayk Brito 💥";
+    content: "application Alx_Ferreira 💥";
     opacity: 0.6;
     font-size: 0.8rem;
 }
 
 button {
   display: block;
-
   width: 100%;
-
-  padding: .8rem 1.6rem;
-  
+  padding: .5rem 1.6rem;  
   overflow: hidden;
-
   position: relative;
-
   font-size: 1.2rem;
   font-weight: normal;
-
   border: none;
   border-radius: 0.4rem;
-
   background: var(--orange);
-
   color: var(--bg);
-
   cursor: pointer;
 }
 
@@ -101,11 +92,11 @@ button:hover {
 }
 
 button + button {
-    margin-top: .8rem;
+    margin-top: .5rem;
 }
 
 img {
-    width: 100%;
+    width: 240px;
     height: auto;
 }
 
@@ -119,7 +110,7 @@ img {
 	margin: .8rem 0;
 }
 #selection-tool{
-	position:fixed;
+	position: fixed;
 	border:2px dashed var(--green);
 	top:0;
 	left:0;

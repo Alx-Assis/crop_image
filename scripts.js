@@ -9,6 +9,8 @@ let photoName;
 
 selectImage.onclick = ()=>{
 	photoFile.click();
+	downloadButton.style.display="none";
+	selection.style.display="none";
 }
 
 //pre carregamento do documento
@@ -61,7 +63,7 @@ const events={
 	mousemove(){
 		if(startSelection){
 			endX=event.clientX;
-			endY=event.clientX;
+			endY=event.clientY;
 			selection.style.display='initial';
 		
 			selection.style.top=startY+'px';
@@ -77,6 +79,8 @@ const events={
 		relativeEndX=event.layerX;
 		relativeEndY=event.layerY;
 		cropImageButton.style.display="initial";
+		downloadButton.style.display="none";
+		
 	}
 };
 	
@@ -148,6 +152,7 @@ cropImageButton.onclick=()=>{
   photoPreview.src=canvas.toDataURL();
   
   downloadButton.style.display="initial";
+  cropImageButton.style.display="none";
   
 }
 
